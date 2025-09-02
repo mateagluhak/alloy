@@ -3,6 +3,7 @@ package common
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -28,6 +29,9 @@ func FetchDataFromURL(url string, target Unmarshaler) error {
 	if err != nil {
 		return err
 	}
+
+	// Log the received message
+	log.Printf("Received message from %s: %s", url, string(bodyBytes))
 
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("Non-OK HTTP status: %s, body: %s, url: %s", resp.Status, string(bodyBytes), url)

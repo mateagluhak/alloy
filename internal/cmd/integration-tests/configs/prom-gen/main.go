@@ -55,6 +55,7 @@ func main() {
 	go handleGaugeInput(setupGauge(labels))
 	go handleHistogramInput(setupHistogram(labels))
 	go handleHistogramInput(setupNativeHistogram(labels))
+	go handleHistogramInput(setupMixedHistogram(labels))
 	go handleSummary(setupSummary(labels))
 	stopChan := make(chan struct{})
 	<-stopChan
@@ -112,6 +113,21 @@ func setupNativeHistogram(labels map[string]string) prometheus.Histogram {
 		})
 	prometheus.MustRegister(nativeHistogram)
 	return nativeHistogram
+}
+
+func setupMixedHistogram(labels map[string]string) prometheus.Histogram {
+	mixedHistogram := prometheus.NewHistogram(
+		prometheus.HistogramOpts{
+			Namespace:                       "golang",
+			Name:                            "mixed_histogram",
+			ConstLabels:                     labels,
+			Buckets:                         []float64{1, 10, 100, 1000},
+			NativeHistogramBucketFactor:     1.1,
+			NativeHistogramMaxBucketNumber:  100,
+			NativeHistogramMinResetDuration: 1 * time.Hour,
+		})
+	prometheus.MustRegister(mixedHistogram)
+	return mixedHistogram
 }
 
 func setupHistogram(labels map[string]string) prometheus.Histogram {

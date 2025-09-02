@@ -16,12 +16,14 @@ var PromDefaultMetrics = []string{
 	"golang_counter",
 	"golang_gauge",
 	"golang_histogram_bucket",
+	"golang_mixed_histogram_bucket",
 	"golang_summary",
 }
 
 // Default histogram metrics list according to what the prom-gen app is generating.
 var PromDefaultHistogramMetric = []string{
 	"golang_native_histogram",
+	"golang_mixed_histogram",
 }
 
 // Default metrics list according to what the otel-gen app is generating.
