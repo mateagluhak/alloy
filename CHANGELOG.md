@@ -100,6 +100,11 @@ Main (unreleased)
 
 - Normalize attr key name in logfmt logger. (@zry98)
 
+- (_Experimental_) Add an extra parameter to the `array.combine_maps` standard library function
+  to enable preserving the first input list even if there is no match. (@ptodev)
+
+- Reduce memory overhead of `prometheus.remote_write`'s WAL by bringing in an upstream change to only track series in a slice if there's a hash conflict. (@kgeckhart)
+
 - The Windows installer and executables are now code signed. (@martincostello)
 
 ### Bugfixes
@@ -114,7 +119,7 @@ Main (unreleased)
 
 - Increase default connection limit in `pyroscope.receive_http` from 100 to 16k. (@korniltsev)
 
-- Fix issue in prometheus remote_write WAL which could allow it to hold an active series forever. (@kgeckhart)
+- Fix issue in `prometheus.remote_write`'s WAL which could allow it to hold an active series forever. (@kgeckhart)
 
 - Fix issue in static and promtail converter where metrics type was not properly handled. (@kalleep)
 
@@ -225,6 +230,8 @@ v1.10.0
 - Update the `prometheus.exporter.postgres` component with latest changes and bugfixes for Postgres17 (@cristiangreco)
 
 - Add `tail_from_end` argument to `loki.source.podlogs` to optionally start reading from the end of a log stream for newly discovered pods. (@harshrai654)
+
+- Remove limitation in `loki.source.file` when `legacy_position_file` is unset. Alloy can now recover legacy positions even if labels are added. (@kalleep)
 
 ### Bugfixes
 
