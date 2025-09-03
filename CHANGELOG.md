@@ -100,6 +100,8 @@ Main (unreleased)
 
 - Normalize attr key name in logfmt logger. (@zry98)
 
+- The Windows installer and executables are now code signed. (@martincostello)
+
 ### Bugfixes
 
 - Update `webdevops/go-common` dependency to resolve concurrent map write panic. (@dehaansa)
